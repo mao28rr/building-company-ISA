@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+ <head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titulo %}{% endblock %}</title>
+    <link rel="shortcut icon" href="{% static 'media/img/djangopng.png' %}" type="image/x-icon">
+    <!-- Fuentes y origenes de la pag: -->  
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+</head> 
+<body>
+    <!-- Menu -->
+    <header class="site-header sticky-top py-1">
+        <nav class="container d-flex flex-column flex-md-row justify-content-between">
+          <a class="py-2" href="#" aria-label="Product">
+            <img src="{% static 'media/img/python.png' %}" width="35" />
+          </a>
+
+          <!-- Enlaces Y control de inicio de sesion: -->
+          
+            <li class="nav-item d-none d-md-inline-block active">
+              <a class="py-2 nav-link mt-3" href="{% url 'inicio' %}">Software para la gestión de seguridad en el trabajo</a>
+            </li>
+            
+            {% if request.user.is_authenticated %}
+              <ul class="d-none d-md-inline-flex active">
+                {% if request.user.is_staff %}
+                <li class="nav-item">
+                  <a href="/admin" class="nav-link text-center">
+                    <i class="fas fa-tools"></i>&nbsp;<br>Administración
+                  </a>
+                </li>
+                {% endif %}
+                <li class="nav-item">
+                  <a href="/admin/comites" class="nav-link text-center">
+                    <i class="fas fa-people-carry"></i>&nbsp;<br>Comites
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="/admin/documentos" class="nav-link text-center">
+                    <i class="fas fa-file-download"></i>&nbsp;<br>Documentos
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <div class="btn-group mt-2">
+                    <a class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" title="{{ request.user.first_name }}">
+                      {% if request.user.profile.avatar %}
+                        <img src="{{ request.user.profile.avatar.url }}" alt="mdo" width="32" height="32" class="rounded-circle">
+                      {% else %}
+                        <i class="fas fa-smile"></i>
+                      {% endif %}
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                      <li><a class="dropdown-item text-dark" href="{% url 'profile' %}">
+                        <i class="fas fa-user-edit text-primary"></i>&nbsp;Perfil de {{ request.user.first_name }}
+                        </a>
+                      </li>
+                      <div class="divider"></div>
+                      <li><a class="dropdown-item text-dark" href="{% url 'logout' %}">
+                        <i class="fas fa-sign-out-alt text-primary"></i>&nbsp;Cerrar Sesión
+                          </a>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+              </ul>
+            {% else %}
+              <li class="nav-item d-none d-md-inline-block">
+                  <a class="py-2 nav-link text-center" href="{% url 'login' %}">
+                    <i class="far fa-check-circle"></i><br>
+                    Ingreso
+                  </a>
+              </li>
+            {% endif %}
+
+
+
+        </nav>
+    </header>
+    {% block contenido %}{% endblock %}
+
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+    <script src="{% static 'js/funciones.js' %}"></script>
+    <script src="{% static 'js/all.js' %}"></script>
+</body>
+</html>

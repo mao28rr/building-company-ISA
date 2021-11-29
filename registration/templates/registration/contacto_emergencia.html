@@ -1,0 +1,33 @@
+{% extends 'core/base.html' %}
+
+{% block titulo %} Contacto de emergencia {% endblock %}
+
+{% block contenido %}
+    {% load static %}
+
+    <form class="row g-3">
+        <div class="col-md-6">
+          <label for="inputusuario4" class="form-label">Usuario</label>
+          <input type="text" class="form-control" id="inputusuario4">
+        </div>
+        <div class="col-12">
+          <label for="inputcontacto_emergencia4" class="form-label">Contacto de Emergencia</label>
+          <input type="text" class="form-control" id="inputcontacto_emergencia4">
+        </div>
+        <div class="col-12">
+          <label for="inputtelefono_emergencia" class="form-label">Teléfono</label>
+          <input type="text" class="form-control" id="inputtelefono_emergencia">
+        </div>
+        <div class="col-md-6">
+          <label for="inputparentesco_emergencia" class="form-label">Parentesco</label>
+          <select id="inputparentesco_emergencia" class="form-select">
+            <option selected>Choose...</option>
+            <option>...</option>
+          </select>
+        </div>
+        <div class="col-12">
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+      </form>
+
+{% endblock %}
